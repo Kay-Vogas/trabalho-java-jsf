@@ -21,7 +21,14 @@
 	<h:inputText value="#{cursoBean.curso.duracao}" />
 	
 	<h:commandButton action="#{cursoBean.gravarCurso()}" 
-													value="Gravar" />	
+													value="Gravar" 
+													rendered="#{!cursoBean.editandoCurso}" />
+	
+	<h:commandButton action="#{cursoBean.editarCurso()}" 
+													value="Atualizar"
+													rendered="#{cursoBean.editandoCurso}" />
+	
+														
 </h:panelGrid>
 </h:form>
 
@@ -31,7 +38,7 @@
 <h:inputText value="#{cursoBean.textoPesquisa}" />
 <h:commandButton action="#{cursoBean.pesquisarCurso()}" value="Pesquisar" />
 
-<h:dataTable value="#{cursoBean.curso}" var="cursoAtual" border="1">
+<h:dataTable value="#{cursoBean.cursos}" var="cursoAtual" border="1">
 	<h:column>
 		<f:facet name="header">Nome</f:facet>
 		<h:outputText value="#{cursoAtual.nome}" />
@@ -44,6 +51,14 @@
 		<f:facet name="header">Duração:</f:facet>
 		<h:outputText value="#{cursoAtual.duracao}" />
 	</h:column>
+	<h:column>
+		<h:commandButton action="#{cursoBean.deletarCurso(cursoAtual)}" 
+													value="Deletar" />	
+													
+		<h:commandButton action="#{cursoBean.carregarEditar(cursoAtual)}" 
+													value="Editar" />											
+	</h:column>
+	
 </h:dataTable> 
 </h:form>
 </body> 

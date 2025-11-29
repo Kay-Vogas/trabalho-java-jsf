@@ -26,9 +26,13 @@ public class CursoBean {
 	
 	private String textoPesquisa;
 	
+	private Long idCurso;
+	
+	private Boolean editandoCurso = false;
+	
 	@PostConstruct
 	public void iniciarListagem() {
-		atualizarListagem();
+			atualizarListagem();
 	}
 	
 	public void atualizarListagem(){
@@ -41,6 +45,32 @@ public class CursoBean {
 		atualizarListagem();
 		FacesContext.getCurrentInstance().addMessage("msg", 
 				new FacesMessage("Curso criado com Sucesso!"));
+	}
+	
+	public void deletarCurso(Curso curso){
+		cursoService.remove(curso);
+		atualizarListagem();
+	}
+	
+	public void editarCurso() {
+
+		cursoService.merge(curso);
+		
+		curso = new Curso();
+		idCurso = 0L;
+		atualizarListagem();
+		
+		FacesContext.getCurrentInstance().addMessage("msg", 
+				new FacesMessage("Curso editado com Sucesso!"));
+		editandoCurso = false;
+	
+	}
+	
+	public void carregarEditar(Curso c){
+		curso = c;
+		idCurso = c.getId();
+		editandoCurso=true;
+		
 	}
 	
 	public void pesquisarCurso() {
@@ -77,6 +107,22 @@ public class CursoBean {
 
 	public void setTextoPesquisa(String textoPesquisa) {
 		this.textoPesquisa = textoPesquisa;
+	}
+
+	public Long getIdCurso() {
+		return idCurso;
+	}
+
+	public void setIdCurso(Long idCurso) {
+		this.idCurso = idCurso;
+	}
+
+	public Boolean getEditandoCurso() {
+		return editandoCurso;
+	}
+
+	public void setEditandoCurso(Boolean editandoCurso) {
+		this.editandoCurso = editandoCurso;
 	}
 	
 	
